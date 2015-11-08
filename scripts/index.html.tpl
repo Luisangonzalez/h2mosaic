@@ -41,7 +41,7 @@
       <!--# elif expr="$server_protocol = HTTP/2.0" -->
       <a href="http://h1.giuseppeciotta.net/h2mosaic/">You can run this test with HTTP/1.1</a>
       <!--# else -->
-      <a href="http://giuseppeciotta.net/h2mosaic/">You can run this test with HTTP/2 (if your browser supports it)</a>
+      <a href="https://giuseppeciotta.net/h2mosaic/">You can run this test with HTTP/2 (if your browser supports it)</a>
       <!--# endif -->
     </p>
     <div class="mosaic">
