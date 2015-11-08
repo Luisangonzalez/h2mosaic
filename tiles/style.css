@@ -1,0 +1,44 @@
+body{
+    color: #2c3e50;
+    background-color: #ffffff;
+    font: 16px Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+a{
+    color: #2c3e50;
+}
+
+.logo{
+    height: 80px;
+}
+
+h1{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 14pt;
+}
+.clearfix{
+    clear: both;
+}
+
+#mosaic img{
+    border: 0;
+    padding: 0;
+    display: block; /* Avoid space at bottom of inline element - see for instance http://stackoverflow.com/questions/4669771/images-side-by-side-without-any-space-between-them */
+    float: left;
+}
+
+#mosaic{
+    width: 600px;
+    height: 400px;
+    text-align: center;
+    margin: auto;
+    border: 1px #95a5a6 solid;
+    padding: 10px;
+    overflow: hidden;
+}
+
+footer{
+    margin: 40px 0 40px 0;
+}
