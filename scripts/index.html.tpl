@@ -2,13 +2,10 @@
 <!--# config timefmt="%s" -->{# for outputting a timestamp along images to avoid caching #}
 <html>
   <head>
-    <title>HTTP/2 Image mosaic test</title>
+    <title>HTTP/2 Mosaic test</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pace.css">    
-    <script src="pace.js"></script>
-    <script src="timer.js"></script>
+    <link rel="stylesheet" href="style.css?<!--# echo var='date_gmt' -->">    
     {% if google_analytics %}
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -18,21 +15,22 @@
       ga('create', '{{google_analytics}}', 'auto');
       ga('send', 'pageview');
     </script>
-   {% endif %}
+    {% endif %}
   </head>
   <body>
     <a href=".">
-      <img class="logo" src="http2_logo.svg" alt="HTTP/2 unofficial logo"/>
+      <img class="logo" src="http2_logo.svg?<!--# echo var='date_gmt' -->" alt="HTTP/2 unofficial logo"/>
     </a>
-    <h1>HTTP/2 Image mosaic test</h1>
+    <h1>HTTP/2 Mosaic test</h1>    
+
     <p>
       <!--# if expr="$server_protocol = HTTP/2.0" -->
-      ✔ <span>You're currently using <strong>HTTP/2.0</strong> to perform this test.</span>       
+      ✔ <span>You're currently using <strong>HTTP/2.0</strong></span>       
       <!--# else -->
-      ✘ <span>You're <strong>not using</strong> HTTP/2.0 to perform this test.</span>             
+      ✘ <span>You're <strong>not using</strong> HTTP/2.0</span>
       <!--# endif -->
-      <strong><span>Load time: <em id="loadTime">-</em> seconds</span></strong>
     </p>
+    <strong id="loadTime"><div id="spinner"></div></strong>
     <p>
       {# Hack to be able to evaluate two variables at the same time. In ssi there is no AND support #}
       <!--# if expr="$https$server_protocol = /onHTTP\/1.+/" -->
@@ -44,8 +42,9 @@
       <a href="https://giuseppeciotta.net/h2mosaic/">You can run this test with HTTP/2 (if your browser supports it)</a>
       <!--# endif -->
     </p>
+    
     <div class="mosaic">
-      {% for i in images %}<img src="tiles/{{i}}?<!--# echo var='date_gmt' -->">{% endfor %}
+      {% for i in images %}<img height="27" width="40" src="tiles/{{i}}?<!--# echo var='date_gmt' -->">{% endfor %}
       <div class="clearfix"></div>
     </div>
     <footer>
@@ -54,5 +53,12 @@
 	<small>Original concept by <a href="https://http2.golang.org/gophertiles">Golang's Gophertiles</a></small>
       </p>
     </footer>
+    <script>
+      window.onload = function() {
+        var now = new Date().getTime();
+        var load_time = now - performance.timing.navigationStart;
+        document.getElementById("loadTime").innerHTML = 'Load time: ' + load_time / 1000.0 + ' seconds';
+      }
+    </script>
   </body>
 </html>

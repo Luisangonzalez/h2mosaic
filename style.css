@@ -5,6 +5,7 @@ body{
     text-align: center;
     padding: 20px;
 }
+
 a{
     color: #2c3e50;
 }
@@ -17,9 +18,7 @@ h1{
     margin-bottom: 20px;
     margin-top: 20px;
 }
-.check{
-    font-size: 1.5em;
-}
+
 .clearfix{
     clear: both;
 }
@@ -47,7 +46,28 @@ h1{
 footer{
     margin-top: 40px;
 }
+#loadTime{
+    height: 24px;
+    display: block;
+}
+/*
+ * Spinner
+ */
+#spinner {
+    margin: auto;
+    display: block;
+    height: 12px;
+    width: 12px;
+    animation: rotate 0.8s infinite linear;
+    border: 3px solid #2c3e50;
+    border-right-color: transparent;
+    border-radius: 50%;
+}
 
+@keyframes rotate {
+    0%    { transform: rotate(0deg); }
+    100%  { transform: rotate(360deg); }
+}
 
 /*
  * Larger screens
@@ -68,4 +88,3 @@ footer{
 	height: 120px;
     }
 }
-
