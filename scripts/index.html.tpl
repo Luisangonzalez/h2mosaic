@@ -4,8 +4,9 @@
   <head>
     <title>HTTP/2 Mosaic test</title>
     <meta charset="UTF-8">
+    <link rel="canonical" href="https://giuseppeciotta.net/h2mosaic/" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css?<!--# echo var='date_gmt' -->">    
+    <link rel="icon" href="/h2mosaic/favicon.png" type="image/png">
     {% if google_analytics %}
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -16,6 +17,7 @@
       ga('send', 'pageview');
     </script>
     {% endif %}
+    <link rel="stylesheet" href="style.css?<!--# echo var='date_gmt' -->">
   </head>
   <body>
     <a href=".">
@@ -54,11 +56,12 @@
       </p>
     </footer>
     <script>
-      window.onload = function() {
+      function loadTime() {
         var now = new Date().getTime();
-        var load_time = now - performance.timing.navigationStart;
-        document.getElementById("loadTime").innerHTML = 'Load time: ' + load_time / 1000.0 + ' seconds';
+        var load_time = now - performance.timing.connectStart;
+        document.getElementById("loadTime").innerHTML = '<span title="Measured from connectStart">Load time</span>: ' + load_time / 1000.0 + ' seconds';
       }
-    </script>
+      window.addEventListener("load", loadTime);      
+    </script>    
   </body>
 </html>
