@@ -3,7 +3,7 @@
 This set of static files demonstrates the page load improvements
 delivered by HTTP/2 compared to HTTP/1.1.
 
-![h2mosaic screenshot](h2mosaic.png)
+![h2mosaic screenshot](h2mosaic.gif)
 
 It does that by having the browser render an image composed of ~230
 small tiles. This scenario stresses the head-of-line blocking and
