@@ -41,16 +41,15 @@
       <!--# elif expr="$server_protocol = HTTP/2.0" -->
       <a href="http://h1.giuseppeciotta.net/h2mosaic/">You can run this test with HTTP/1.1</a>
       <!--# else -->
-      <a href="https://giuseppeciotta.net/h2mosaic/">You can run this test with HTTP/2 (if your browser supports it)</a>
+      <a href="https://giuseppeciotta.net/h2mosaic/">You can run this test with HTTP/2.0 (if your browser supports it)</a>
       <!--# endif -->
     </p>
-    
     <div class="mosaic">
-      {% for i in images %}<img height="27" width="40" src="tiles/{{i}}?<!--# echo var='date_gmt' -->">{% endfor %}
+      {% for i in images %}<img src="tiles/{{i}}?<!--# echo var='date_gmt' -->">{% endfor %}
       <div class="clearfix"></div>
     </div>
     <footer>
-      <a href="https://giuseppeciotta.net">Giuseppe Ciotta</a> 2015
+      Read the <a href="https://giuseppeciotta.net/getting-to-know-http20-with-the-mosaic-demo.html">blog post</a> explaining how this demo works
       <p>
 	<small>Original concept by <a href="https://http2.golang.org/gophertiles">Golang's Gophertiles</a></small>
       </p>
@@ -61,7 +60,11 @@
         var load_time = now - performance.timing.connectStart;
         document.getElementById("loadTime").innerHTML = '<span title="Measured from connectStart">Load time</span>: ' + load_time / 1000.0 + ' seconds';
       }
-      window.addEventListener("load", loadTime);      
+      if (typeof performance != null) {
+        window.addEventListener("load", loadTime);
+      } else {
+        document.getElementById("loadTime").innerHTML = 'Sorry, your browser does not support this test';
+      }
     </script>    
   </body>
 </html>
