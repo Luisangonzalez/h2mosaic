@@ -14,6 +14,9 @@ export ANDROID_HOME=~/Android/Sdk
 export PATH=~/Android/Sdk/platform-tools:$PATH
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+Download Chromedriver
+export CHROMEDRIVER_PATH=[choose your chromedriver path]
+
 Enable USB debugging in your phone, plug it via USB and make sure  adb devices shows it
 Change network settings if you want (eg. 3g, 4g, 2g)
 npm install appium; appium
@@ -21,6 +24,7 @@ Disable screen lock on device
 Run this script
 """
 import sys
+import os
 import numpy as np
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -38,7 +42,7 @@ def load_page(browser, url, times):
 
         print('  Median load time for {}: {:.2f}'.format(url, np.percentile(load_times, 50)))
         print('  95th percentile for {}: {:.2f}'.format(url, np.percentile(load_times, 95)))
-        print('  99th percentile for {}: {:.2f}'.format(url, np.percentile(load_times, 99)))    
+        print('  99th percentile for {}: {:.2f}'.format(url, np.percentile(load_times, 99)))
 
 if __name__ == '__main__':
     USAGE = 'Usage: {} <mobile|desktop> <ntimes>'.format(sys.argv[0])
@@ -51,7 +55,7 @@ if __name__ == '__main__':
         browser = webdriver.Remote(
             command_executor='http://localhost:4723/wd/hub',
             desired_capabilities={
-                "platformName":"Android",            
+                "platformName":"Android",
                 "browserName":"Chrome",
                 "javascriptEnabled":True,
                 "chromeOptions":{"args":["--disable-translate"]},
@@ -60,10 +64,11 @@ if __name__ == '__main__':
             }
         )
     elif sys.argv[1] == 'desktop':
-        browser = webdriver.Chrome()
+        browser = webdriver.Chrome(os.environ.get('CHROMEDRIVER_PATH'))
+        browser.maximize_window()
     else:
-        sys.exit(USAGE)        
+        sys.exit(USAGE)
 
     load_page(browser, 'https://giuseppeciotta.net/h2mosaic/', ntimes)
-    load_page(browser, 'http://h1.giuseppeciotta.net/h2mosaic/', ntimes)    
+    load_page(browser, 'http://h1.giuseppeciotta.net/h2mosaic/', ntimes)
     browser.quit()
